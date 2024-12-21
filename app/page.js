@@ -1,5 +1,5 @@
 
-
+import Link from "next/link";
 export default function Home() {
 
   return (
@@ -11,7 +11,7 @@ export default function Home() {
           <p className="text-green-900  my-6">Your Dream Carrier Begins with us</p>
           <h2 className="text-4xl font-bold text-gray-800  my-6">Looking for a Life Changing Career? Browse our Latest Jobs</h2>
           <p className="text-gray-700 my-6 space-y-2">At HireTask, you can get your dream job from the comfort of your home and create a difference in your life or post a job for a talented worker</p>
-          <button className="text-white bg-green-700 hover:bg-green-800 rounded p-2 cursor-pointer">Browse Jobs</button>
+         <Link href="/Jobs"> <button className="text-white bg-green-700 hover:bg-green-800 rounded p-2 cursor-pointer">Browse Jobs</button>      </Link>
 
         </div>
 
