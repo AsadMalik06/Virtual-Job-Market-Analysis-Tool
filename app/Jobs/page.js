@@ -1,28 +1,39 @@
-import { connectToDatabase } from '../../lib/mongoose';
-import Job from '../../models/Job';
+// pages/jobs.js
+import { connectToDatabase } from '../lib/mongoose';
+import Job from '../models/Job';
 
-async function fetchJobs() {
-  await connectToDatabase();
-  const jobs = await Job.find({}).sort({ date: -1 });
-  return jobs;
+export async function getServerSideProps() {
+  try {
+    const { db } = await connectToDatabase();
+    const jobs = await db.collection('jobs').find().toArray();
+
+    return {
+      props: {
+        jobs: JSON.parse(JSON.stringify(jobs)), // pass jobs as props
+      },
+    };
+  } catch (err) {
+    console.error('Error fetching jobs:', err);
+    return {
+      props: {
+        jobs: [],
+      },
+    };
+  }
 }
 
-export default async function BrowseJobs() {
-  const jobs = await fetchJobs();  // Dynamically fetch at runtime
-
+export default function Jobs({ jobs }) {
   return (
     <div>
       <h1>Browse Jobs</h1>
       {jobs.length > 0 ? (
-        jobs.map((job) => (
-          <div key={job._id}>
-            <h2>{job.title}</h2>
-            <p>{job.company}</p>
-            <p>{job.description}</p>
-          </div>
-        ))
+        <ul>
+          {jobs.map((job) => (
+            <li key={job._id}>{job.title}</li>
+          ))}
+        </ul>
       ) : (
-        <p>No jobs available</p>
+        <p>No jobs posted yet.</p>
       )}
     </div>
   );
