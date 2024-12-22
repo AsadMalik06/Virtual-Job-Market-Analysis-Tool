@@ -1,6 +1,5 @@
 // app/Jobs/page.js
 import { connectToDatabase } from '../../lib/mongoose';
-import Job from '../../models/Job';
 
 async function getJobs() {
   const { db } = await connectToDatabase();
