@@ -28,27 +28,44 @@ export default function CreateJob() {
 
   return (
     <div>
-      <h1>Create a Job Post</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Job Title</label>
-          <input
-            id="title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Job Description</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
-        </div>
-        <button type="submit">Post Job</button>
-      </form>
+      <h1 className="text-gray-700 text-center font-bold text-3xl my-10" >Create a Job Post</h1>
+
+      <div className='flex justify-center   p-5'>
+
+
+        <form onSubmit={handleSubmit}>
+
+          <div className='mb-6 flex gap-8'>
+            <label htmlFor="title">Job Title</label>
+            <input
+            placeholder='Enter Job Title'
+            className='p-2 rounded'
+              id="title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+
+
+          <div className='flex flex-col gap-3 mb-6'>
+            <label htmlFor="description">Job Description</label>
+            <textarea
+            className='p-2 rounded-xl'
+            placeholder='Enter Job Description'
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={10}
+            ></textarea>
+          </div>
+
+
+
+
+          <button className='text-white bg-green-700 p-2 rounded hover:bg-green-800 cursor-pointer' type="submit">Post Job</button>
+        </form>
+      </div>
     </div>
   );
 }
