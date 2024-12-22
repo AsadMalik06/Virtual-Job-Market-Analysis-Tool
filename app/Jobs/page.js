@@ -1,13 +1,29 @@
-import React from 'react'
+import { connectToDatabase } from '../../lib/mongoose';
+import Job from '../../models/Job';
 
-const page = () => {
-  return (
-    <>
-    
-  <h1 className='text-3xl text-gray-700 font-bold text-center my-20'> Page Under Development</h1>
-    
-    </>
-  )
+async function fetchJobs() {
+  await connectToDatabase();
+  const jobs = await Job.find({}).sort({ date: -1 });
+  return jobs;
 }
 
-export default page
+export default async function BrowseJobs() {
+  const jobs = await fetchJobs();  // Dynamically fetch at runtime
+
+  return (
+    <div>
+      <h1>Browse Jobs</h1>
+      {jobs.length > 0 ? (
+        jobs.map((job) => (
+          <div key={job._id}>
+            <h2>{job.title}</h2>
+            <p>{job.company}</p>
+            <p>{job.description}</p>
+          </div>
+        ))
+      ) : (
+        <p>No jobs available</p>
+      )}
+    </div>
+  );
+}
