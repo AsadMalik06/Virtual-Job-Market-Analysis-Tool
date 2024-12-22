@@ -1,14 +1,19 @@
+// models/Job.js
 import mongoose from 'mongoose';
 
 const JobSchema = new mongoose.Schema({
-  title: String,
-  company: String,
-  description: String,
-  date: {
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-const Job = mongoose.models.Job || mongoose.model('Job', JobSchema);
-export default Job;
+export default mongoose.models.Job || mongoose.model('Job', JobSchema);
